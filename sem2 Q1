@@ -1,0 +1,74 @@
+#include<stdio.h> 
+int b[100]; 
+void sort(int n) 
+{ 
+    int i, j, minIndex; 
+    for (i = 0; i < n-1; i++) 
+    { 
+        minIndex = i; 
+        for (j = i+1; j < n; j++)  
+        { 
+            if (b[j] < b[minIndex]) { 
+                minIndex = j; 
+            } 
+        } 
+        int temp = b[i]; 
+        b[i] = b[minIndex]; 
+        b[minIndex] = temp; 
+    } 
+} 
+int chek(int n) 
+{ 
+    int flag=0; 
+    for(int i=0;i<n;i++) 
+    { 
+        if(b[i]==0) 
+        { 
+            flag++; 
+        } 
+    } 
+    return flag==n?0:1; 
+} 
+int minOp(int n) 
+{ 
+    int op=0; 
+    while(chek(n)) 
+    { 
+        for(int i=0;i<n;i++) 
+        { 
+            if(b[i]%2==1) 
+            { 
+                b[i]--; 
+                op++; 
+            } 
+        } 
+        for(int i=0;i<n;i++) 
+        { 
+            b[i]/=2; 
+        } 
+        op++; 
+    } 
+    return op-1; 
+} 
+int main() { 
+    int n; 
+
+ 
+  
+    printf("Enter the 
+number of buckets: "); 
+    scanf("%d", &n); 
+    printf("Enter the 
+number of fruits required 
+in each bucket:\n"); 
+    for (int i = 0; i < n; i++)  
+    { 
+        printf("Bucket %d: ", 
+i + 1); 
+        scanf("%d", &b[i]); 
+    } 
+    sort(n); 
+    int min_ops = minOp(n); 
+    printf("Minimum number of operations required: %d\n", min_ops);
+return 0;
+}
